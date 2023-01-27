@@ -24,7 +24,7 @@ public class DynamicJson {
         String msg = json.get("Msg");
         System.out.println(msg + "\n");
 
-        //deleteBook
+        //deleteBook.
 
 
     }
