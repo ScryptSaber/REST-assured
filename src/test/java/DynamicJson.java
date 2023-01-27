@@ -32,7 +32,7 @@ public class DynamicJson {
     @DataProvider(name = "BooksData")
     public Object[][] getData() {
         //array= collection of elements
-        //multidimensional array= collection of arrays
+        //multidimensional array= collection of arrays.
 
         return new Object[][]{{"saweqf", "51349"}, {"csdsd", "55534"}, {"cswuud", "55504"}};
     }
