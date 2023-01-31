@@ -18,7 +18,7 @@ public class OAuthTest {
 
 
         String accessTokenResponse = given().urlEncodingEnabled(false)
-                .queryParam("code", "4%2F0AWtgzh4LwU28mZM8moFITQjoCwe4q1NtVI7GHdoREm6GcqSrR9e5gk7fhYOKKheS_9eDpA")
+                .queryParam("code", code)
                 .queryParam("client_id", "692183103107-p0m7ent2hk7suguv4vq22hjcfhcr43pj.apps.googleusercontent.com")
                 .queryParam("client_secret", "erZOWM9g3UtwNRj340YYaK_W")
                 .queryParam("redirect_uri", "https://rahulshettyacademy.com/getCourse.php")
