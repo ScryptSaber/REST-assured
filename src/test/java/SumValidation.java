@@ -22,5 +22,7 @@ public class SumValidation {
         int purchaceAmount = json.getInt("dashboard.purchaseAmount");
         Assert.assertEquals(sum, purchaceAmount);
 
+
+
     }
 }
