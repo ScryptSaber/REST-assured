@@ -1,24 +1,35 @@
 package oAuth_2;
 
 
-import io.github.bonigarcia.wdm.WebDriverManager;
+import io.restassured.parsing.Parser;
 import io.restassured.path.json.JsonPath;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Assert;
+import pojo.GetCourse;
+import pojo.WebAutomation;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import static io.restassured.RestAssured.given;
 
 public class OAuthTest {
     public static void main(String[] args) {
-        String url = "https://rahulshettyacademy.com/getCourse.php?code=4%2F0AWtgzh4LwU28mZM8moFITQjoCwe4q1NtVI7GHdoREm6GcqSrR9e5gk7fhYOKKheS_9eDpA&scope=email+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+openid&authuser=0&prompt=none";
-        String partialCode = url.split("code=")[1];
-        String code = partialCode.split("&scope")[0];
-        System.out.println(code);
 
+//        WebDriverManager.chromedriver().setup();
+//        WebDriver driver = new ChromeDriver();
+//        driver.get("https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/userinfo.email&auth_url=https://accounts.google.com/o/oauth2/v2/auth&client_id=692183103107-p0m7ent2hk7suguv4vq22hjcfhcr43pj.apps.googleusercontent.com&response_type=code&redirect_uri=https://rahulshettyacademy.com/getCourse.php");
+//        String url = driver.getCurrentUrl();
+//        String partialCode = url.split("code=")[1];
+//        String code = partialCode.split("&scope")[0];
+//        System.out.println(code);
+
+        String directCode = "4%2F0AWtgzh6re4Hx4jSYEQ-LH_KW7alFVazOG5ssZ69b7Gzl5fPyJ5O6kRZPnUdLyiq-7z4wgQ";
+
+        String[] courseTitles = {"Selenium Webdriver Java", "Cypress", "Protractor"};
 
         String accessTokenResponse = given().urlEncodingEnabled(false)
-                .queryParam("code", code)
+                .queryParam("code", directCode)
                 .queryParam("client_id", "692183103107-p0m7ent2hk7suguv4vq22hjcfhcr43pj.apps.googleusercontent.com")
                 .queryParam("client_secret", "erZOWM9g3UtwNRj340YYaK_W")
                 .queryParam("redirect_uri", "https://rahulshettyacademy.com/getCourse.php")
@@ -29,10 +40,31 @@ public class OAuthTest {
         JsonPath js = new JsonPath(accessTokenResponse);
         String accessToken = js.getString("access_token");
 
-        String response = given().queryParam("access_token", accessToken)
-                .when().log().all()
-                .get("https://rahulshettyacademy.com/getCourse.php").asString();
-        System.out.println("Response: " + response);
+        GetCourse gc = given().queryParam("access_token", accessToken).expect().defaultParser(Parser.JSON)
+                .when()
+                .get("https://rahulshettyacademy.com/getCourse.php").as(GetCourse.class);
+
+        System.out.println("\n\n" + gc.getLinkedIn());
+        System.out.println(gc.getInstructor());
+        System.out.println(gc.getExpertise());
+        System.out.println(gc.getUrl());
+        System.out.println(gc.getCourses().getApi().get(1).getCourseTitle());
+
+        ArrayList actualList = new ArrayList<>();
+
+
+        //Assignment of rahulshetty
+        for (WebAutomation list : gc.getCourses().getWebAutomation()) {
+            System.out.println(list.getCourseTitle());
+            actualList.add(list.getCourseTitle());
+        }
+
+        List expectedList = Arrays.asList(courseTitles);
+
+        Assert.assertTrue(actualList.equals(expectedList));
+
+
+        // System.out.println("Response: " + response);
 
 
     }
