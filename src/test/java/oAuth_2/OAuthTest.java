@@ -63,7 +63,6 @@ public class OAuthTest {
 
         Assert.assertTrue(actualList.equals(expectedList));
 
-
         // System.out.println("Response: " + response);
 
 
