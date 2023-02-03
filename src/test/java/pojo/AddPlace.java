@@ -1,6 +1,4 @@
-package pojo2;
-
-import io.cucumber.java.it.Data;
+package pojo;
 
 import java.util.List;
 

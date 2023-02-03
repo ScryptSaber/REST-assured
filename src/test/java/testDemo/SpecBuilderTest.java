@@ -1,4 +1,4 @@
-package pojo2;
+package testDemo;
 
 import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
@@ -7,6 +7,8 @@ import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
+import pojo.AddPlace;
+import pojo.Location;
 
 import java.util.ArrayList;
 import java.util.List;

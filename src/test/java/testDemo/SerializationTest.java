@@ -1,9 +1,10 @@
-package pojo2;
+package testDemo;
 
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
+import pojo.AddPlace;
+import pojo.Location;
 
-import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.List;
 
